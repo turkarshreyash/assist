@@ -4,10 +4,10 @@
 * Home Assist
 
 ### Daily Assist
-* Daily News Assist
+* Daily News Assist:
 Using Daily News Assist you can get updates around the world on your preferred topics.
 Also get daily newsletter.
-* Cash Follow Assist
+* Cash Follow Assist :
 Keep track on our expenses and income, check how much you spent on usefull things and how much did you wasted.
 Also get investment recommdations based on your income and wasted so that instead on wasting you invest!
 
