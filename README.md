@@ -15,7 +15,7 @@ Also get investment recommdations based on your income and wasted so that instea
 ### Home Assist
 #### This segment focuses on Internet of Things.
 Home assist will enable to control all your 'HOMEASSIST' devices from a web app.
-#### Turn your home into a smart home using home assist in simple 3 steps:
+#### Turn your home into a smart home using home assist in 3 simple steps:
 * Get a 'HOMEASSIST' device and gateway.
 * Create Assist account & add your Gateway.
 * Add devices and configure.
