@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<br>
+<div class="container">
+    <div class="container" align="center">
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">
+                <div class="card text-center" style="width: 18rem;">
+                    <div class="card-header">Login</div>
+                    <div class="card-body">
+                        <br>
+                        <form action="{% url 'user:login' %}" method="POST">
+                                {% csrf_token %}
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="Email Id" name="email">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
