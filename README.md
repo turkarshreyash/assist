@@ -1,4 +1,4 @@
-# <UNDER-DEVELOPMENT>
+# UNDER-DEVELOPMENT
 # ASSIST
 ## Assist is new series of services which will have following segments
 * Daily Assist
