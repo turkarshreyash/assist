@@ -11,14 +11,19 @@ from . import NewsEngine
 
 def home(request):
     articles = None
+    country = None
+    category = None
+    words = None
     if request.method == "POST":
         search = request.POST['search']
-        articles = NewsEngine.GetNews(search)
-
+        (articles,country,category,words) = NewsEngine.GetNews(search)
+        words = words.split()
 
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('main:userhome'))
-    return render(request,'main/home.html',{'articles':articles})
+    if len(words) == 0:
+        words = None
+    return render(request,'main/home.html',{'articles':articles,'country':country,'category':category,'words':words})
 
 
 @login_required(login_url='user:login')

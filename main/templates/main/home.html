@@ -12,6 +12,7 @@
         <div class="col-sm-8">
 
             <div class="container">
+
                 <h5>News</h5>
                 <form action="{% url 'main:home' %}" method="POST">
                     {% csrf_token %}
@@ -26,7 +27,55 @@
                     </div>
                 </form>
             </div>
+
             <div class="container">
+
+                {% if not country == None or not category == None or not words == None %}
+
+
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            {% if country %}
+                            <div class="col-sm">
+                                Country : {{country}}
+                            </div>
+                            {% endif %}
+                            {% if category %}
+                            <div class="col-sm">
+                                Category : {{category}}
+                            </div>
+                            {% endif %}
+                            {% if words %}
+                            <div class="col-sm">
+                                Keywords :
+                                {% for i in words %}
+                                {{i}}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+
+                        </div>
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+
+
+
+                {% endif %}
+                <br>
+
+
+
                 {% load filters %}
                 {% for i in articles %}
                 <div class="card mb-3">
@@ -43,8 +92,8 @@
                 </div>
                 {% endfor %}
             </div>
-
         </div>
+
         <div class="col-sm-4">
             <div class="container">
                 <h5>Trending</h5>
@@ -80,7 +129,5 @@
 
 
     </div>
-
-
 </div>
 {% endblock %}
