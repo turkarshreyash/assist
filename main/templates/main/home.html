@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<br>
+
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-8">
+
+            <div class="container">
+                <h5>News</h5>
+                <form action="{% url 'main:home' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+
+                        <input type="text" name="search" class="form-control" placeholder="Category/Country"
+                            aria-label="search" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="container">
+                {% load filters %}
+                {% for i in articles %}
+                <div class="card mb-3">
+                    <img src="{{ i.urlToImage}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{{i.url}}">
+                                {{ i.title}}
+                            </a>
+                        </h5>
+                        <p class="card-text">{{i.description}}</p>
+                        <p class="card-text"><small class="text-muted">{{i.publishedAt}}</small></p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="container">
+                <h5>Trending</h5>
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="..." class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+
+
+                                <h5 class="card-title">
+
+                                </h5>
+
+                                <p class="card-text">
+
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-muted">
+
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+</div>
+{% endblock %}

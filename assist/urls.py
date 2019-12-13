@@ -18,7 +18,8 @@ from django.urls import path,include
 
 
 urlpatterns = [
-    path('homeassist',include('home.urls')),
-    path('',include('userauth.urls')),
-    path('admin/', admin.site.urls),
+    path('homeassist/',include('home.urls')),
+    path('',include('main.urls')),
+    path('userauth/',include('userauth.urls')),
+    path('admin/', admin.site.urls),	
 ]

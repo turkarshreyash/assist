@@ -7,14 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from . import models
 
-def home(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('user:userhome'))
-    return render(request,'userauth/home.html')
 
 def userlogin(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('user:userhome'))
+        return HttpResponseRedirect(reverse('main:userhome'))
     if request.method == "POST":
         email = request.POST['email']
         username = User.objects.get(email=email)
@@ -22,18 +18,17 @@ def userlogin(request):
         user = authenticate(request, password=password, username=username)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse('user:userhome'))
+            return HttpResponseRedirect(reverse('main:userhome'))
         else:
             return HttpResponse("Failed")
     return render(request,'userauth/login.html')
 
-def userhome(request):
-    return render(request,'userauth/userhome.html')
+
 
 @login_required
 def userlogout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('user:home'))
+    return HttpResponseRedirect(reverse('main:home'))
 
 
 

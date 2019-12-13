@@ -11,4 +11,4 @@ def logoutfunction(request):
     return HttpResponseRedirect(reverse('home:homepage'))
 
 def homepage(request):
-    return render(request,'pages/home.html')
+    return render(request,'homeassist/home.html')

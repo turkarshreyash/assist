@@ -12,15 +12,16 @@
                     <div class="card-header">Login</div>
                     <div class="card-body">
                         <br>
-                        <form action="{% url 'user:login' %}" method="POST">
-                                {% csrf_token %}
+                        <form action="{% url 'userauth:login' %}" method="POST">
+                            {% csrf_token %}
                             <div class="form-group">
                                 <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Email Id" name="email">
+                                    aria-describedby="emailHelp" placeholder="Email Id" name="email" required>
                             </div>
                             <br>
                             <div class="form-group">
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+                                <input type="password" class="form-control" id="exampleInputPassword1"
+                                    placeholder="Password" name="password" required>
                             </div>
                             <br>
                             <button type="submit" class="btn btn-primary">Submit</button>
