@@ -4,6 +4,7 @@
 {% load static %}
 <br>
 
+{% if not error %}
 
 <div class="container">
 
@@ -18,10 +19,11 @@
                     {% csrf_token %}
                     <div class="input-group mb-3">
 
-                        <input type="text" name="search" class="form-control" placeholder="Category/Country"
+                        <input type="text" name="search" class="form-control"
+                            placeholder="{% if no_of_results == -1 %}Try: India Technology Apple {% else %}Search{% endif %}"
                             aria-label="search" aria-describedby="button-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Go</button>
                         </div>
 
                     </div>
@@ -30,27 +32,27 @@
 
             <div class="container">
 
-                {% if not country == None or not category == None or not words == None %}
+                {% if not results.country == None or not results.category == None or not results.query == None%}
 
 
 
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            {% if country %}
+                            {% if results.country %}
                             <div class="col-sm">
-                                Country : {{country}}
+                                Country : {{results.country}}
                             </div>
                             {% endif %}
-                            {% if category %}
+                            {% if results.category %}
                             <div class="col-sm">
-                                Category : {{category}}
+                                Category : {{results.category}}
                             </div>
                             {% endif %}
-                            {% if words %}
+                            {% if results.query %}
                             <div class="col-sm">
                                 Keywords :
-                                {% for i in words %}
+                                {% for i in results.query %}
                                 {{i}}
                                 {% endfor %}
                             </div>
@@ -60,12 +62,6 @@
                         </div>
 
 
-
-
-
-
-
-
                     </div>
                 </div>
 
@@ -73,9 +69,10 @@
 
                 {% endif %}
                 <br>
-
-
-
+                {% if not no_of_results == 0 and not no_of_results == -1%}
+                <p class="text-muted">
+                    {{no_of_results}} results
+                </p>
                 {% load filters %}
                 {% for i in articles %}
                 <div class="card mb-3">
@@ -91,43 +88,42 @@
                     </div>
                 </div>
                 {% endfor %}
+                {%elif no_of_results == 0%}
+                <p class="text-muted">
+                    No Results
+                </p>
+                {% endif %}
             </div>
         </div>
 
         <div class="col-sm-4">
             <div class="container">
                 <h5>Trending</h5>
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="..." class="card-img" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-
-
-                                <h5 class="card-title">
-
-                                </h5>
-
-                                <p class="card-text">
-
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-muted">
-
-                                    </small>
-                                </p>
-                            </div>
-                        </div>
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static 'images/homehomeassist2.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Home Assist</h5>
+                        <p class="card-text">
+                            Control your house through web app!
+                        </p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Switches & Plugs</li>
+                        <li class="list-group-item">Plant Watering</li>
+                        <li class="list-group-item">Security</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="{% url 'home:homepage' %}" class="card-link">Learn More...</a>
                     </div>
                 </div>
+
             </div>
         </div>
-
-
-
-
     </div>
 </div>
+{% else %}
+<div class="container">
+    {{error}}
+</div>
+{%endif %}
 {% endblock %}
