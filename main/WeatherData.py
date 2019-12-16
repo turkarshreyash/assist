@@ -13,13 +13,12 @@ def getLocation(request):
     else:
         ip = request.META.get('REMOTE_ADDR') 
     location = dict()
-    print(ip)
     try:
-        location["country"] = g.country(ip)
+        location["country"] = g.country(ip)["country_name"]
     except:
         location["country"] = None
     try:
-        location["city"] = g.city(ip)
+        location["city"] = g.city(ip)["city"]
     except:
         location["city"] = None
     return location
