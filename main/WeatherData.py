@@ -14,13 +14,13 @@ def getLocation(request):
         ip = request.META.get('REMOTE_ADDR') 
     location = dict()
     try:
-        location["country"] = g.country(ip)["country_name"]
+        location["country"] = g.country(ip)["country_name"].capitalize()
         location["country_code"] = g.country(ip)["country_code"].lower()
     except:
         location["country"] = None
         location["country_code"] = None
     try:
-        location["city"] = g.city(ip)["city"]
+        location["city"] = g.city(ip)["city"].capitalize()
     except:
         location["city"] = None
     return location
@@ -36,10 +36,11 @@ def weather(location):
     if x["cod"] != "404": 
         weather = dict()
         y = x["main"] 
-        weather["temp"] = y["temp"] 
+        weather["temp"] = y["temp"] - 273.15
         weather["pressure"] = y["pressure"] 
         weather["humidity"] = y["humidity"]
         weather["weather"]= x["weather"] 
-        weather["description"] = x["weather"][0]["description"] 
+        weather["description"] = x["weather"][0]["description"].capitalize()
+        weather["icon"] = "http://openweathermap.org/img/w/"+str(x["weather"][0]["icon"])+".png"
         return weather
     return weather
