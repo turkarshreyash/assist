@@ -1,6 +1,7 @@
 import requests, json 
 from django.contrib.gis.geoip2 import GeoIP2
 
+g = GeoIP2()
 api_key = "9d8ee2cbc7f94d51d3c7b65651ac3b72"
 
 base_url = "http://api.openweathermap.org/data/2.5/weather?"
@@ -12,6 +13,7 @@ def getLocation(request):
     else:
         ip = request.META.get('REMOTE_ADDR') 
     location = dict()
+    print(ip)
     try:
         location["country"] = g.country(ip)
     except:
