@@ -5,54 +5,38 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from . import NewsEngine
-from django.contrib.gis.geoip2 import GeoIP2
-from . import WeatherData
-import threading
+from . import models
 from . import TextPreProcessor
-
-g = GeoIP2()
-
+from . import NewsEngine
+from . import WeatherData
+import concurrent.futures
 
 
 def home(request):
-    articles = None
-    result = None
-    error = None
-    weather = None
-    no_of_results = 0
-    if request.method == "POST":
-        search = request.POST['search']
-        result = TextPreProcessor.preprocessing(search)
-        try:
-            articles = NewsEngine.GetNews(result)
-        except:
-            error = "Error :-("
-
-        
-    else:
-        try:
-            location = g.country(NewsEngine.get_client_ip(request))["country_code"]
-            print(location)
-            (articles,result) = NewsEngine.GetNews(location)
-        except:
-            no_of_results = -1
-        try:
-            weather = WeatherData.weather(g.city(NewsEngine.get_client_ip(request)))
-            print(weather)
-        except:
-            weather = None
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('main:userhome'))
-    if articles:
-        no_of_results = len(articles)
-    elif not no_of_results == -1:
-        no_of_results = 0
-    
-    return render(request,'main/home.html',{'no_of_results':no_of_results,'articles':articles,'results':result, 'error':error})
+    location = WeatherData.getLocation(request)
+    executor = concurrent.futures.ThreadPoolExecutor()
+    t1 = executor.submit(WeatherData.weather,location)
+    if request.method == "POST":
+        search = request.POST["search"]
+        t2 = executor.submit(NewsEngine.GetNews,search)
+        new_query = models.Query(ip_location=str(location["city"])+","+str(location["country"]),text_searched=search)
+        new_query.save()
+    else:
+        t2 = executor.submit(NewsEngine.GetNewsByLocation,location)
+    weather = t1.result()
+    (query,articles) = t2.result()
+    if query:
+        query["no_of_results"] = len(articles)
+        new_query_properties = models.PropertiesOfSearch(query=new_query,q=query["q"])
+        new_query_properties.save()
+    print(f"location : {location}\nweather : {weather}\nquery : {query}")
+    return render(request,'main/home.html',{'location':location,'weather':weather,'articles':articles,'query':query})
 
 
 @login_required(login_url='user:login')
 def userhome(request):
     location = ""
     return render(request,'main/userhome.html',{'location':location})
+ 

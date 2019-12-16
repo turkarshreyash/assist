@@ -1,27 +1,42 @@
-# Python program to find current 
-# weather details of any city 
-# using openweathermap api 
-
-# import required modules 
 import requests, json 
+from django.contrib.gis.geoip2 import GeoIP2
 
-# Enter your API key here 
 api_key = "9d8ee2cbc7f94d51d3c7b65651ac3b72"
 
-# base_url variable to store url 
 base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
+def getLocation(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR') 
+    location = dict()
+    try:
+        location["country"] = g.country(ip)
+    except:
+        location["country"] = None
+    try:
+        location["city"] = g.city(ip)
+    except:
+        location["city"] = None
+    return location
 
-def weather(city_name):
-    complete_url = base_url + "appid=" + api_key + "&q=" + city_name 
+def weather(location):
+    weather = None
+    if location["city"] == None:
+        return weather
+    complete_url = base_url + "appid=" + api_key + "&q=" + location["city"] 
     response = requests.get(complete_url) 
     x = response.json() 
+    weather = dict()
     if x["cod"] != "404": 
+        weather = dict()
         y = x["main"] 
-        current_temperature = y["temp"] 
-        current_pressure = y["pressure"] 
-        current_humidiy = y["humidity"] 
-        z = x["weather"] 
-        weather_description = z[0]["description"] 
-        return (current_temperature,current_pressure,current_humidiy,weather_description)
-    return (None,None,None,None)
+        weather["temp"] = y["temp"] 
+        weather["pressure"] = y["pressure"] 
+        weather["humidity"] = y["humidity"]
+        weather["weather"]= x["weather"] 
+        weather["description"] = x["weather"][0]["description"] 
+        return weather
+    return weather

@@ -13,15 +13,14 @@
         <div class="col-sm-8">
 
             <div class="container">
-
                 <h5>News</h5>
                 <form action="{% url 'main:home' %}" method="POST">
                     {% csrf_token %}
                     <div class="input-group mb-3">
 
                         <input type="text" name="search" class="form-control"
-                            placeholder="{% if no_of_results == -1 %}Try: India Technology Apple {% else %}Search{% endif %}"
-                            aria-label="search" aria-describedby="button-addon2">
+                            placeholder=" {% if query %} {{query.searched}} {% else %} Try : India Technology Samsung {% endif %}"
+                            aria-label="search" aria-describedby="button-addon2" required>
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Go</button>
                         </div>
@@ -32,29 +31,32 @@
 
             <div class="container">
 
-                {% if not results.country == None or not results.category == None or not results.query == None%}
-
-
-
+                {% if query %}
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            {% if results.country %}
+                            {% if query.corrected %}
                             <div class="col-sm">
-                                Country : {{results.country}}
+                                <a href="http://">Did You Mean : {{query.corrected}}?</a>
+
                             </div>
                             {% endif %}
-                            {% if results.category %}
+                        </div>
+                        <div class="row">
+                            {% if query.country %}
                             <div class="col-sm">
-                                Category : {{results.category}}
+                                Country : {{query.country}}
                             </div>
                             {% endif %}
-                            {% if results.query %}
+                            {% if query.category %}
+                            <div class="col-sm">
+                                Category : {{query.category}}
+                            </div>
+                            {% endif %}
+                            {% if query.q %}
                             <div class="col-sm">
                                 Keywords :
-                                {% for i in results.query %}
-                                {{i}}
-                                {% endfor %}
+                                {{query.q}}
                             </div>
                             {% endif %}
 
@@ -69,34 +71,36 @@
 
                 {% endif %}
                 <br>
-                {% if not no_of_results == 0 and not no_of_results == -1%}
+                {% if query %}
                 <p class="text-muted">
-                    {{no_of_results}} results
+                    {% if query.no_of_results != 0 %}
+                    {{query.no_of_results}} results
+                    {% else %}
+                    No Results
+                    {% endif %}
                 </p>
+                {% endif %}
                 {% load filters %}
                 {% for i in articles %}
                 <div class="card mb-3">
                     <img src="{{ i.urlToImage}}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="{{i.url}}">
-                                {{ i.title}}
-                            </a>
-                        </h5>
-                        <p class="card-text">{{i.description}}</p>
-                        <p class="card-text"><small class="text-muted">{{i.publishedAt}}</small></p>
+                        <h5 class="card-title">{{weather.weather}}</h5>
+                        <p class="card-text">
+                            {{weather.description}}
+                        </p>
                     </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{weather.temp}}</li>
+                        <li class="list-group-item">{{weather.pressure}}</li>
+                        <li class="list-group-item">{{weather.humidity}}</li>
+                    </ul>
                 </div>
-                {% endfor %}
-                {%elif no_of_results == 0%}
-                <p class="text-muted">
-                    No Results
-                </p>
-                {% endif %}
-            </div>
-        </div>
 
-        <div class="col-sm-4">
+            </div>
+            <hr>
+
+            {% endif %}
             <div class="container">
                 <h5>Trending</h5>
                 <div class="card" style="width: 18rem;">
