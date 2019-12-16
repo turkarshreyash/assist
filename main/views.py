@@ -10,8 +10,7 @@ from . import TextPreProcessor
 from . import NewsEngine
 from . import WeatherData
 import concurrent.futures
-
-
+ 
 def home(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('main:userhome'))

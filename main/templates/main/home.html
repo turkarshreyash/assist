@@ -30,18 +30,20 @@
             </div>
 
             <div class="container">
-
+                {% if query.corrected %}
+                <div class="col-sm">
+                    <form action="{% url 'main:home' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="text" value={{query.corrected}} name="search" hidden required>
+                            <button type="submit" class="btn btn-link">Did You Mean : {{query.corrected}}?</button>
+                        </div>
+                    </form>
+                </div>
+                {% endif %}
                 {% if query %}
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            {% if query.corrected %}
-                            <div class="col-sm">
-                                <a href="http://">Did You Mean : {{query.corrected}}?</a>
-
-                            </div>
-                            {% endif %}
-                        </div>
                         <div class="row">
                             {% if query.country %}
                             <div class="col-sm">
@@ -99,7 +101,7 @@
         </div>
 
         <div class="col-sm-4">
-        
+
             {% if weather %}
             <div class="container">
                 <h5>Weather</h5>
@@ -117,7 +119,7 @@
                                     T : {{weather.temp}}°C
                                     <hr>
                                     H : {{weather.humidity}}%
-                                    
+
                                 </div>
                             </div>
 
