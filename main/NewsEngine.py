@@ -7,7 +7,7 @@ import concurrent.futures
 newsapi = NewsApiClient(api_key='c9057c453e2446f5a4712ee31fd63ede')
 
 def GetNewsByLocation(location):
-    articles  = newsapi.get_top_headlines(country = location["country"])['articles']
+    articles  = newsapi.get_top_headlines(country = location["country_code"])['articles']
     return (None,articles)
 
 def GetNews(search):

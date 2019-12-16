@@ -15,8 +15,10 @@ def getLocation(request):
     location = dict()
     try:
         location["country"] = g.country(ip)["country_name"]
+        location["country_code"] = g.country(ip)["country_code"].lower()
     except:
         location["country"] = None
+        location["country_code"] = None
     try:
         location["city"] = g.city(ip)["city"]
     except:
