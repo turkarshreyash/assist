@@ -99,6 +99,22 @@
         </div>
 
         <div class="col-sm-4">
+            {% if location.city %}
+            <div class="container">
+                <h5>Weather</h5>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{location.city}}</h5>
+                        <p class="card-text">
+                            {{location.country}}
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <hr>
+
+            {% endif %}
             {% if weather %}
             <div class="container">
                 <h5>Weather</h5>
