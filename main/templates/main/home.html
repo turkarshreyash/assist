@@ -85,6 +85,25 @@
                 <div class="card mb-3">
                     <img src="{{ i.urlToImage}}" class="card-img-top" alt="...">
                     <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{{i.url}}">
+                                {{ i.title}}
+                            </a>
+                        </h5>
+                        <p class="card-text">{{i.description}}</p>
+                        <p class="card-text"><small class="text-muted">{{i.publishedAt}}</small></p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            {% if weather %}
+            <div class="container">
+                <h5>Weather</h5>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
                         <h5 class="card-title">{{weather.weather}}</h5>
                         <p class="card-text">
                             {{weather.description}}
