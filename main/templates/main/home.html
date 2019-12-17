@@ -9,7 +9,64 @@
 <div class="container">
 
     <div class="row">
+        <div class="col-sm-4">
 
+            {% if weather %}
+            <div class="container">
+                <h5>Weather</h5>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{location.city}}, <small>{{location.country}}</small></h5>
+                        <p class="card-text">
+                            <div class="row">
+                                <div class="col">
+                                    <img src={{weather.icon}} class="card-img-top" alt="...">
+                                </div>
+                                <div class="col">
+                                    {{weather.description}}
+                                    <hr>
+                                    T : {{weather.temp}}°C
+                                    <hr>
+                                    H : {{weather.humidity}}%
+
+                                </div>
+                            </div>
+
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <hr>
+
+            {% endif %}
+            <div class="container">
+                <h5>Trending</h5>
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static 'images/homehomeassist2.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Home Assist
+                            <small class="text-muted">
+                                Coming Soon...
+                            </small>
+                        </h5>
+                        <p class="card-text">
+                            Control your house through web app!
+                        </p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Switches & Plugs</li>
+                        <li class="list-group-item">NeX-Gen Plant Watering</li>
+                        <li class="list-group-item">Security</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="{% url 'home:homepage' %}" class="card-link">Learn More...</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <div class="col-sm-8">
 
             <div class="container">
@@ -100,59 +157,7 @@
             </div>
         </div>
 
-        <div class="col-sm-4">
 
-            {% if weather %}
-            <div class="container">
-                <h5>Weather</h5>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{location.city}}, <small>{{location.country}}</small></h5>
-                        <p class="card-text">
-                            <div class="row">
-                                <div class="col">
-                                    <img src={{weather.icon}} class="card-img-top" alt="...">
-                                </div>
-                                <div class="col">
-                                    {{weather.description}}
-                                    <hr>
-                                    T : {{weather.temp}}°C
-                                    <hr>
-                                    H : {{weather.humidity}}%
-
-                                </div>
-                            </div>
-
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-            <hr>
-
-            {% endif %}
-            <div class="container">
-                <h5>Trending</h5>
-                <div class="card" style="width: 18rem;">
-                    <img src="{% static 'images/homehomeassist2.jpg' %}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Home Assist</h5>
-                        <p class="card-text">
-                            Control your house through web app!
-                        </p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Switches & Plugs</li>
-                        <li class="list-group-item">Plant Watering</li>
-                        <li class="list-group-item">Security</li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="{% url 'home:homepage' %}" class="card-link">Learn More...</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
     </div>
 </div>
 {% else %}

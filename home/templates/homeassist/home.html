@@ -4,59 +4,97 @@
 {% load static %}
 
 <div class="container">
-    <br>
-    <h4>Home Assist</h4>
+  <br>
+  <h4>Home Assist
+    <small class="text-muted">
+      Coming Soon...
+    </small></h5>
+  </h4>
 
 
 
 
-    <div class="card mb-3">
-        <img src='{% static "images/homeassistheaddisplay.jpg" %}' class="card-img-top" alt="...">
+  <div class="card mb-3">
+    <img src='{% static "images/homeassistheaddisplay.jpg" %}' class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Nex-Gen Home</h5>
+
+      <p class="card-text">
+        Control your home through webapp.
+      </p>
+    </div>
+  </div>
+
+  <br>
+  <h5>Features</h5>
+  <br>
+  <h5 class="text-muted">
+    All this through webapp!
+  </h5>
+  <br>
+
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src='{% static "images/homeassistplug.jpg" %}' class="card-img" alt="...">
+      </div>
+      <div class="col-md-8">
         <div class="card-body">
-            <h5 class="card-title">Nex-Gen Home</h5>
-            <p class="card-text">
-                @catchy headline 
-
-            </p>
+          <h5 class="card-title">Plugs & Switches</h5>
+          <p class="card-text">
+            <h6 class="text-muted">
+              Control devices
+            </h6>
+          </p>
         </div>
+      </div>
     </div>
+  </div>
 
-    <br>
-    <h5>Features</h5>
-    <br>
-    <div class="card-group">
-        <div class="card">
-          <img src='{% static "images/homeassistplug.jpg" %}' class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Control Power Plugs</h5>
-            <p class="card-text">
-                @catchyheadline
-            </p>
-          </div>
+
+
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src='{% static "images/homeassistambientlighting.jpg" %}' class="card-img" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Lighting</h5>
+          <p class="card-text">
+            <h6 class="text-muted">
+              Choose color of lights, 
+              according to your mood.
+            </h6>
+          </p>
         </div>
-        <div class="card">
-                
-          <img src='{% static "images/homeassistswitch.jpg" %}' class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Control Switches</h5>
-            <p class="card-text">
-                @catchy headline 
-            </p>
-          </div>
-        </div>
-        <div class="card">
-                
-          <img src='{% static "images/homeassistambientlighting.jpg" %}' class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Control Lighting</h5>
-            <p class="card-text">
-                @catchy headline 
-            </p>
-          </div>
-        </div>
+      </div>
     </div>
-    <hr>
+  </div>
+
+
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src='{% static "images/homewateringsys.jpg" %}' class="card-img" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Nex-Gen Watering</h5>
+          <p class="card-text">
+            <h6 class="text-muted">
+              Check how your plants are doing,
+              while you are away.
+            </h6>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<hr>
+
 
 
 {% endblock %}
